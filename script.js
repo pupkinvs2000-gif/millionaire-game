@@ -26,7 +26,7 @@ const questions = [
         level: 1
     },
     {
-        question: "У кого "саааамааая маленькая" зарплата в ВММ?",
+        question: "У кого \"саааамааая маленькая\" зарплата в ВММ?",
         answers: ["A: Татьяна Юрьевна", "B: Любовь Ивановна", "C: Люся", "D: Цымбал"],
         correct: 3,
         level: 1
@@ -571,4 +571,5 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
 
