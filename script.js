@@ -8,7 +8,7 @@ const questions = [
         level: 1
     },
     {
-        question: " Куда Виталя поедет после работы?",
+        question: "Куда Виталя поедет после работы?",
         answers: ["A: Люська", "B: Катька", "C: Машка", "D: Юра"],
         correct: 2,
         level: 1
@@ -33,7 +33,7 @@ const questions = [
     },
     // Вопросы 6-10 (средние)
     {
-        question: " Кто твоя друлега?",
+        question: "Кто твоя друлега?",
         answers: ["A: Катя", "B: Аня", "C: Виталя", "D: Татьяна Юрьевна"],
         correct: 1,
         level: 2
@@ -571,3 +571,4 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
