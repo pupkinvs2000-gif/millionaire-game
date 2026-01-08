@@ -370,7 +370,7 @@ function useAudience() {
     if (!gameState.lifelines.audience || !gameState.gameActive) return;
     
     const question = gameState.currentQuestionData;
-    const labels = ['участок 1 A', 'участок 2 B', 'участок 3 C', 'участок 4 D'];
+    const labels = ['участок №1 A', 'участок №2 B', 'участок №3 C', 'участок №4 D'];
     const correctLabel = labels[question.correct];
     
     // Генерируем результаты голосования зала
@@ -415,7 +415,7 @@ function takeMoney() {
     if (!gameState.gameActive || gameState.currentQuestion === 0) return;
     
     const currentPrize = prizes[gameState.currentQuestion - 1];
-    endGame(true, `Вы решили забрать деньги? Да сейчас прям. ПЭО такое не одобряет! ${formatMoney(currentPrize)}!`);
+    endGame(true, `Вы решили забрать деньги? Да сейчас прям. ПЭО такое не одобряет! вы должны конторе- ${formatMoney(currentPrize)}!`);
 }
 
 // Генерация QR кода
@@ -486,7 +486,7 @@ function endGame(won, customMessage = null) {
         console.log('Проверка победы. currentQuestion:', gameState.currentQuestion);
         if (gameState.currentQuestion === 15) {
             title = '🎉 ПОЗДРАВЛЯЕМ! 🎉';
-            message = 'Вы ответили на все 15 вопросов правильно!';
+            message = 'Вы ответили на все 15 вопросов с помощью высших сил 💀, гугла 👩‍💻, гаданий 🔮, и сбору сплтен на работе 🗣️!';
             
             // Проверяем наличие элементов
             if (!elements.qrContainer) {
@@ -632,6 +632,7 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
 
 
 
