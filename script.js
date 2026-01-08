@@ -103,7 +103,7 @@ const questions = [
 
 // Призы по уровням
 const prizes = [
-    100, 200, 300, 500, 1000,
+    100, 200, 300, 500, 800, 1000,
     2000, 4000, 8000, 16000, 32000,
     64000, 125000, 250000, 500000, 1000000
 ];
@@ -175,7 +175,7 @@ function initGame() {
     elements.lifelineAudience.disabled = false;
     
     // Сброс призов
-    for (let i = 1; i <= 15; i++) {
+    for (let i = 1; i <= 16; i++) {
         const prize = document.getElementById(`prize-${i}`);
         prize.classList.remove('active', 'won', 'lost');
     }
@@ -258,7 +258,7 @@ function loadQuestion() {
 
 // Обновление лестницы призов
 function updatePrizeLadder(currentNum) {
-    for (let i = 1; i <= 15; i++) {
+    for (let i = 1; i <= 16; i++) {
         const prize = document.getElementById(`prize-${i}`);
         prize.classList.remove('active');
         
@@ -638,6 +638,7 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
 
 
 
