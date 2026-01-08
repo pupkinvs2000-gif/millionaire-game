@@ -573,3 +573,5 @@ elements.hintModal.addEventListener('click', (e) => {
 initGame();
 
 
+
+
