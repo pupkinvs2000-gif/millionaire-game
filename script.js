@@ -8,6 +8,12 @@ const questions = [
         level: 1
     },
     {
+        question: "Какое ТС дешевле стульев Козлова?",
+        answers: ["A: танк", "B: Синий логан", "C: 777", "D: вертолет Ильина"],
+        correct: 1,
+        level: 1
+    },
+    {
         question: "Куда Виталя поедет после работы?",
         answers: ["A: Люська", "B: Катька", "C: Машка", "D: Юра"],
         correct: 2,
@@ -632,6 +638,7 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
 
 
 
