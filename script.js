@@ -332,7 +332,7 @@ function useFiftyFifty() {
     gameState.lifelines.fiftyFifty = false;
     elements.lifeline5050.disabled = true;
     
-    showHint('50/50', 'Два неправильных ответа были скрыты!');
+    showHint('50/50', 'Два неправильных ответа были скрыты, Хз какие!');
 }
 
 // Подсказка звонок другу
@@ -349,20 +349,20 @@ function usePhone() {
     
     if (confidence > 0.7) {
         // Друг уверен
-        message = `Друг говорит: "Я уверен, что правильный ответ - ${correctLabel}. Вероятность около 85%."`;
+        message = `Виталька говорит: "Я погуглил, что правильный ответ - ${correctLabel}. Вероятность около 85%."`;
     } else if (confidence > 0.4) {
         // Друг не уверен
-        message = `Друг говорит: "Я думаю, что это может быть ${correctLabel}, но не уверен на 100%. Вероятность около 60%."`;
+        message = `Виталька говорит: "Мне Машка говорит, что это может быть ${correctLabel}, но не уверен на 100%. Вероятность около 60%."`;
     } else {
         // Друг не знает
         const randomLabel = labels[Math.floor(Math.random() * 4)];
-        message = `Друг говорит: "Честно говоря, я не уверен, но может быть ${randomLabel}. Вероятность около 40%."`;
+        message = `Виталька говорит: "Честно говоря, я у Машки, но может быть ${randomLabel}. Вероятность около 40%."`;
     }
     
     gameState.lifelines.phone = false;
     elements.lifelinePhone.disabled = true;
     
-    showHint('Звонок другу', message);
+    showHint('Звонок Витальке', message);
 }
 
 // Подсказка помощь зала
@@ -392,7 +392,7 @@ function useAudience() {
     // Убеждаемся, что сумма = 100
     percentages[question.correct] += remaining;
     
-    let message = 'Результаты голосования зала:\n';
+    let message = 'Результаты голосования участков:\n';
     labels.forEach((label, index) => {
         message += `${label}: ${percentages[index]}%\n`;
     });
@@ -400,7 +400,7 @@ function useAudience() {
     gameState.lifelines.audience = false;
     elements.lifelineAudience.disabled = true;
     
-    showHint('Помощь зала', message);
+    showHint('Помощь участков ВММ', message);
 }
 
 // Показать подсказку
@@ -542,8 +542,8 @@ function endGame(won, customMessage = null) {
         }
         
         message = guaranteedPrize > 0 
-            ? `Неправильный ответ! Но вы гарантированно забираете ${formatMoney(guaranteedPrize)}!`
-            : `Неправильный ответ! Вы проиграли!`;
+            ? `Неправильный ответ! Но вы гарантированно забираете эти копейки ${formatMoney(guaranteedPrize)}!`
+            : `Неправильный ответ! Вы ЛОШАРЫ!`;
         
         // Отметить проигранные призы
         for (let i = gameState.currentQuestion + 1; i <= 15; i++) {
@@ -566,7 +566,7 @@ function generateQRCodeText() {
     
 Вы стали миллионером в игре "Кто хочет стать миллионером?"
     
-Вы успешно ответили на все 15 вопросов!
+Вы успешно ответили на все 15 вопросов с помощью высших сил, гугла, гаданий, и сбору сплтен на работе!
     
 Дата: ${new Date().toLocaleDateString('ru-RU')}
 Время: ${new Date().toLocaleTimeString('ru-RU')}
@@ -632,4 +632,5 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
 
