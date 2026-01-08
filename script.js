@@ -292,8 +292,11 @@ function checkAnswer(selectedIndex) {
             gameState.currentQuestion++;
             gameState.score = prizes[gameState.currentQuestion - 1];
             
+            console.log(`Правильный ответ! Текущий вопрос: ${gameState.currentQuestion}/15`);
+            
             if (gameState.currentQuestion === 15) {
                 // Выиграл миллион!
+                console.log('🎉 ПОБЕДА! Все 15 вопросов пройдены! Генерируем QR код...');
                 setTimeout(() => {
                     endGame(true);
                 }, 2000);
@@ -417,28 +420,57 @@ function takeMoney() {
 
 // Генерация QR кода
 function generateQRCode(text) {
-    // Очищаем предыдущий QR код
-    elements.qrCode.innerHTML = '';
-    
-    // Создаем canvas элемент для QR кода
-    const canvas = document.createElement('canvas');
-    elements.qrCode.appendChild(canvas);
-    
-    // Генерируем QR код
-    QRCode.toCanvas(canvas, text, {
-        width: 300,
-        margin: 2,
-        color: {
-            dark: '#000000',
-            light: '#FFFFFF'
-        },
-        errorCorrectionLevel: 'H'
-    }, function (error) {
-        if (error) {
-            console.error('Ошибка генерации QR кода:', error);
-            elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">Ошибка генерации QR кода</p>';
+    try {
+        // Проверяем наличие библиотеки
+        if (typeof QRCode === 'undefined') {
+            console.error('Библиотека QRCode не загружена!');
+            if (elements.qrCode) {
+                elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">Ошибка: Библиотека QRCode не найдена. Проверьте подключение к интернету.</p>';
+            }
+            return;
         }
-    });
+        
+        // Проверяем наличие элемента
+        if (!elements.qrCode) {
+            console.error('Элемент qrCode не найден!');
+            return;
+        }
+        
+        console.log('Начинаем генерацию QR кода для текста:', text);
+        
+        // Очищаем предыдущий QR код
+        elements.qrCode.innerHTML = '';
+        
+        // Используем альтернативный способ - генерируем напрямую в элемент
+        QRCode.toCanvas(elements.qrCode, text, {
+            width: 300,
+            margin: 2,
+            color: {
+                dark: '#000000',
+                light: '#FFFFFF'
+            },
+            errorCorrectionLevel: 'H'
+        }, function (error) {
+            if (error) {
+                console.error('Ошибка генерации QR кода:', error);
+                elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">Ошибка генерации QR кода: ' + error.message + '</p>';
+            } else {
+                console.log('✅ QR код успешно сгенерирован!');
+                // Убеждаемся, что canvas виден
+                const canvas = elements.qrCode.querySelector('canvas');
+                if (canvas) {
+                    canvas.style.display = 'block';
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.height = 'auto';
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Исключение при генерации QR кода:', error);
+        if (elements.qrCode) {
+            elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">Ошибка: ' + error.message + '</p>';
+        }
+    }
 }
 
 // Окончание игры
@@ -451,15 +483,44 @@ function endGame(won, customMessage = null) {
     let title, message;
     
     if (won) {
+        console.log('Проверка победы. currentQuestion:', gameState.currentQuestion);
         if (gameState.currentQuestion === 15) {
             title = '🎉 ПОЗДРАВЛЯЕМ! 🎉';
             message = 'Вы ответили на все 15 вопросов правильно!';
             
+            // Проверяем наличие элементов
+            if (!elements.qrContainer) {
+                console.error('❌ Элемент qrContainer не найден!');
+            }
+            if (!elements.qrCode) {
+                console.error('❌ Элемент qrCode не найден!');
+            }
+            if (!elements.qrText) {
+                console.error('❌ Элемент qrText не найден!');
+            }
+            if (typeof QRCode === 'undefined') {
+                console.error('❌ Библиотека QRCode не загружена!');
+            }
+            
             // Генерируем QR код как главный приз
+            console.log('✅ Генерация QR кода для победителя...');
             const qrText = generateQRCodeText();
-            generateQRCode(qrText);
-            elements.qrText.textContent = 'Отсканируйте QR код, чтобы получить ваш главный приз!';
-            elements.qrContainer.style.display = 'block';
+            console.log('📝 Текст для QR кода:', qrText);
+            
+            // Показываем контейнер с QR кодом
+            if (elements.qrContainer) {
+                elements.qrContainer.style.display = 'block';
+                console.log('✅ Контейнер QR кода отображен');
+            }
+            if (elements.qrText) {
+                elements.qrText.textContent = 'Отсканируйте QR код, чтобы получить ваш главный приз!';
+            }
+            
+            // Генерируем QR код с небольшой задержкой, чтобы убедиться, что элемент виден
+            setTimeout(() => {
+                console.log('⏳ Запуск генерации QR кода...');
+                generateQRCode(qrText);
+            }, 100);
         } else {
             title = 'Поздравляем!';
             message = customMessage || `Вы выиграли ${formatMoney(gameState.score)}!`;
@@ -571,7 +632,3 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
-
-
-
-
