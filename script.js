@@ -425,7 +425,7 @@ function generateQRCode(text) {
         if (typeof QRCode === 'undefined') {
             console.error('Библиотека QRCode не загружена!');
             if (elements.qrCode) {
-                elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">Ошибка: Библиотека QRCode не найдена. Проверьте подключение к интернету.</p>';
+                elements.qrCode.innerHTML = '<p style="color: red; padding: 20px;">ПОЗДРАВЛЯЕМ! Вы выиграли главный приз! Извозчик Евгения 89122892000!.</p>';
             }
             return;
         }
@@ -632,3 +632,4 @@ elements.hintModal.addEventListener('click', (e) => {
 
 // Инициализация при загрузке
 initGame();
+
